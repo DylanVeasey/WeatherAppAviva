@@ -27,11 +27,13 @@ namespace Aviva_Weather
             base.OnResume();
             await SimulateStartup();
         }
-
+        
+        //Keeps the splash screen open for 4 seconds and then starts the main activity file
         async private Task SimulateStartup()
         {
             //Keeps the home screen open for four seconds to simulate the startup
             await Task.Delay(TimeSpan.FromSeconds(4));
+            //Loads the main activity file
             StartActivity(new Android.Content.Intent(Application.Context, typeof(MainActivity)));
         }
     }
