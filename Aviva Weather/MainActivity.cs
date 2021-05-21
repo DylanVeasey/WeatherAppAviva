@@ -54,7 +54,7 @@ namespace Aviva_Weather
                     //Checks to see if the user has pressed the enter button, if they have, then we can take the location from the text box
                     if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
                     {  
-                        Location = edittext.Text;
+                        Location = LocationInputFromUser.Text;
                         WeatherJSON = GetWeather(Location);
                         if (WeatherJSON == "error")
                         {
@@ -145,7 +145,7 @@ namespace Aviva_Weather
                 //Checks to see if the user has pressed the enter button, if they have, then we can take the location from the text box
                 if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
                 {
-                    Location = edittext.Text;
+                    Location = LocationInputFromUser.Text;
                     WeatherJSON = GetWeather(Location);
                     if (WeatherJSON == "error")
                     {
