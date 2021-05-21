@@ -40,8 +40,6 @@ namespace Aviva_Weather
          
             SetContentView(Resource.Layout.home_screen);
 
-
-
             Button LoadSettingsScreenButton = FindViewById<Button>(Resource.Id.LoadSettingsScreenButton);
             LoadSettingsScreenButton.Click += delegate
             {
@@ -53,12 +51,14 @@ namespace Aviva_Weather
                 edittext.KeyPress += (object sender, View.KeyEventArgs e) =>
                 {
                     e.Handled = false;
+                    //Checks to see if the user has pressed the enter button, if they have, then we can take the location from the text box
                     if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
                     {  
                         Location = edittext.Text;
                         WeatherJSON = GetWeather(Location);
                         if (WeatherJSON == "error")
                         {
+                            //If the API returned an error, the user is returned to the home screen and alearted that the location they entered does not exist
                             LoadHomeScreen();
                             Toast.MakeText(Application.Context, "No Location with this name!", ToastLength.Short).Show();
                         }
@@ -71,8 +71,6 @@ namespace Aviva_Weather
                 };  
         }
 
- 
-
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -82,6 +80,7 @@ namespace Aviva_Weather
 
         public string GetWeather(string Location)
         {
+        //Try's to pull data from the API, if it fails, then it will return an error, else it will return the API response
             using( var client = new WebClient())
             {
                 try
@@ -134,23 +133,23 @@ namespace Aviva_Weather
             {
                 LoadWeatherScreen(GetWeather(FavouriteLocationThree));
             };
-
+            
+            //Sets the text values of the buttons to be equal to the favourite locations
             FavouritesButtonOne.Text = FavouriteLocationOne;
             FavouritesButtonTwo.Text = FavouriteLocationTwo;
             FavouritesButtonThree.Text = FavouriteLocationThree;
 
-
-
-
             EditText edittext = FindViewById<EditText>(Resource.Id.edittext);
             edittext.KeyPress += (object sender, View.KeyEventArgs e) => {
                 e.Handled = false;
+                //Checks to see if the user has pressed the enter button, if they have, then we can take the location from the text box
                 if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
                 {
                     Location = edittext.Text;
                     WeatherJSON = GetWeather(Location);
                     if (WeatherJSON == "error")
                     {
+                        //If the API returned an error, the user is returned to the home screen and alearted that the location they entered does not exist
                         LoadHomeScreen();
                         Toast.MakeText(Application.Context, "No Location with this name!", ToastLength.Short).Show();
                     }
@@ -161,17 +160,15 @@ namespace Aviva_Weather
                     e.Handled = true;
                 }
             };
-
         }
+        
         public void LoadWeatherScreen(string WeatherJSON)
         {
             SetContentView(Resource.Layout.weather_screen);
-           
-       
-                Weather = JsonSerializer.Deserialize<Rootobject>(WeatherJSON);
+    
+            //Converts the JSON string into an object using the JsonSerializer library
+            Weather = JsonSerializer.Deserialize<Rootobject>(WeatherJSON);
          
-
-
             Button LoadHomeScreenButton2 = FindViewById<Button>(Resource.Id.LoadHomeScreenButton);
             LoadHomeScreenButton2.Click += delegate
             {
@@ -213,6 +210,7 @@ namespace Aviva_Weather
 
         public void AddFavourite(string LocationName)
         {
+            //Checks to see if there is already a value for the favourite and adds sets the favourite location if it is not already set.
           if(IsFavOne == false)
             {
                 FavouriteLocationOne = LocationName;
@@ -233,6 +231,7 @@ namespace Aviva_Weather
 
         public float ConvertKelvinToCelcius(float Temperature)
         {
+        //To convert from kelvin to celcius, minus 273.15
             return Temperature - 273.15F;
         }
 
