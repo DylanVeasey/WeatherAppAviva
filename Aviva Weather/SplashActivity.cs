@@ -30,6 +30,7 @@ namespace Aviva_Weather
 
         async private Task SimulateStartup()
         {
+            //Keeps the home screen open for four seconds to simulate the startup
             await Task.Delay(TimeSpan.FromSeconds(4));
             StartActivity(new Android.Content.Intent(Application.Context, typeof(MainActivity)));
         }
