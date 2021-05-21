@@ -46,9 +46,9 @@ namespace Aviva_Weather
                 LoadSettingsScreen();
             };
 
-            EditText edittext = FindViewById<EditText>(Resource.Id.edittext);
+            EditText LocationInputFromUser = FindViewById<EditText>(Resource.Id.edittext);
 
-                edittext.KeyPress += (object sender, View.KeyEventArgs e) =>
+                LocationInputFromUser.KeyPress += (object sender, View.KeyEventArgs e) =>
                 {
                     e.Handled = false;
                     //Checks to see if the user has pressed the enter button, if they have, then we can take the location from the text box
@@ -139,8 +139,8 @@ namespace Aviva_Weather
             FavouritesButtonTwo.Text = FavouriteLocationTwo;
             FavouritesButtonThree.Text = FavouriteLocationThree;
 
-            EditText edittext = FindViewById<EditText>(Resource.Id.edittext);
-            edittext.KeyPress += (object sender, View.KeyEventArgs e) => {
+            EditText LocationInputFromUser = FindViewById<EditText>(Resource.Id.edittext);
+            LocationInputFromUser.KeyPress += (object sender, View.KeyEventArgs e) => {
                 e.Handled = false;
                 //Checks to see if the user has pressed the enter button, if they have, then we can take the location from the text box
                 if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
