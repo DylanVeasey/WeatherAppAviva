@@ -39,15 +39,17 @@ namespace Aviva_Weather
 
          
             SetContentView(Resource.Layout.home_screen);
-
+            
+            
+            //When the user clicks on the settings button, the systems loads the settings screen
             Button LoadSettingsScreenButton = FindViewById<Button>(Resource.Id.LoadSettingsScreenButton);
             LoadSettingsScreenButton.Click += delegate
             {
                 LoadSettingsScreen();
             };
 
+            
             EditText LocationInputFromUser = FindViewById<EditText>(Resource.Id.edittext);
-
                 LocationInputFromUser.KeyPress += (object sender, View.KeyEventArgs e) =>
                 {
                     e.Handled = false;
@@ -97,8 +99,10 @@ namespace Aviva_Weather
 
         public void LoadSettingsScreen()
         {
+            
             SetContentView(Resource.Layout.settings);
 
+            //When the user clicks on the Back button, the system loads the home screen
             Button LoadHomeScreenButton = FindViewById<Button>(Resource.Id.LoadHomeScreenButton);
             LoadHomeScreenButton.Click += delegate
             {
@@ -110,24 +114,29 @@ namespace Aviva_Weather
         {
             SetContentView(Resource.Layout.home_screen);
 
+            //When the user clicks the Settings button, the system loads the settings screen
             Button LoadSettingsScreenButton = FindViewById<Button>(Resource.Id.LoadSettingsScreenButton);
             LoadSettingsScreenButton.Click += delegate
             {
                 LoadSettingsScreen();
             };
-
+            
+            
+            //When the user clicks the Favourite location button, the system loads the weather screen for the corresponding favourite location
             Button FavouritesButtonOne = FindViewById<Button>(Resource.Id.FavouritesButtonOne);
             FavouritesButtonOne.Click += delegate
             {
                 LoadWeatherScreen(GetWeather(FavouriteLocationOne));
             };
-
+            
+            //When the user clicks the Favourite location button, the system loads the weather screen for the corresponding favourite location
             Button FavouritesButtonTwo = FindViewById<Button>(Resource.Id.FavouritesButtonTwo);
             FavouritesButtonTwo.Click += delegate
             {
                 LoadWeatherScreen(GetWeather(FavouriteLocationTwo));
             };
 
+            //When the user clicks the Favourite location button, the system loads the weather screen for the corresponding favourite location
             Button FavouritesButtonThree = FindViewById<Button>(Resource.Id.FavouritesButtonThree);
             FavouritesButtonThree.Click += delegate
             {
@@ -142,7 +151,7 @@ namespace Aviva_Weather
             EditText LocationInputFromUser = FindViewById<EditText>(Resource.Id.edittext);
             LocationInputFromUser.KeyPress += (object sender, View.KeyEventArgs e) => {
                 e.Handled = false;
-                //Checks to see if the user has pressed the enter button, if they have, then we can take the location from the text box
+                //Checks to see if the user has pressed the enter button, if they have, then the system can take the location from the text box
                 if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
                 {
                     Location = LocationInputFromUser.Text;
@@ -168,19 +177,23 @@ namespace Aviva_Weather
     
             //Converts the JSON string into an object using the JsonSerializer library
             Weather = JsonSerializer.Deserialize<Rootobject>(WeatherJSON);
-         
+            
+            //When the user clicks the back button, the system loads the home screen.
             Button LoadHomeScreenButton2 = FindViewById<Button>(Resource.Id.LoadHomeScreenButton);
             LoadHomeScreenButton2.Click += delegate
             {
                 LoadHomeScreen();
             };
-
+            
+            //Displays the value of temperature, rounded to the nearest integer
             TextView TemperatureText = FindViewById<TextView>(Resource.Id.TemperatureText);
             TemperatureText.Text = Math.Round(ConvertKelvinToCelcius(Weather.main.temp)).ToString()  + " Degrees ";
 
+            //Displays the description of the weather
             TextView TemperatureTextDecription = FindViewById<TextView>(Resource.Id.TemperatureTextMinMax);
             TemperatureTextDescription.Text = Weather.weather[0].description;
 
+            //When the user clicks the Add to favourites button, the system loads the favourite screen
             Button LoadFavouritesScreenButton2 = FindViewById<Button>(Resource.Id.LoadFavouritesScreenButton);
             LoadFavouritesScreenButton2.Click += delegate
             {
@@ -192,15 +205,18 @@ namespace Aviva_Weather
         {
             SetContentView(Resource.Layout.favourites_screen);
 
+            //When the user clicks the back button, the system loads the home screen
             Button LoadHomeScreenButon = FindViewById<Button>(Resource.Id.LoadHomeScreenButton);
             LoadHomeScreenButon.Click += delegate
             {
                 LoadHomeScreen();
             };
 
+            //Displays the name of the location on the screen
             TextView FavouriteLocationNameOne = FindViewById<TextView>(Resource.Id.FavouriteLocationNameOne);
             FavouriteLocationNameOne.Text = Weather.name;
 
+            //When the user clicks on the confirm button, the system adds the location to the list of favourties
             Button ConfirmFavouriteButton = FindViewById<Button>(Resource.Id.ConfirmFavouriteButton);
             ConfirmFavouriteButton.Click += delegate
             {
