@@ -1,4 +1,4 @@
-﻿
+//Classes for the data recieved from the API
 public class Rootobject
 {
     public Coord coord { get; set; }
