@@ -178,8 +178,8 @@ namespace Aviva_Weather
             TextView TemperatureText = FindViewById<TextView>(Resource.Id.TemperatureText);
             TemperatureText.Text = Math.Round(ConvertKelvinToCelcius(Weather.main.temp)).ToString()  + " Degrees ";
 
-            TextView TemperatureTextMinMax = FindViewById<TextView>(Resource.Id.TemperatureTextMinMax);
-            TemperatureTextMinMax.Text = Weather.weather[0].description;
+            TextView TemperatureTextDecription = FindViewById<TextView>(Resource.Id.TemperatureTextMinMax);
+            TemperatureTextDescription.Text = Weather.weather[0].description;
 
             Button LoadFavouritesScreenButton2 = FindViewById<Button>(Resource.Id.LoadFavouritesScreenButton);
             LoadFavouritesScreenButton2.Click += delegate
@@ -234,12 +234,5 @@ namespace Aviva_Weather
         //To convert from kelvin to celcius, minus 273.15
             return Temperature - 273.15F;
         }
-
-
-
-
-
-
-
     }
 }
