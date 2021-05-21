@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dylan\\source\\repos\\Aviva Weather\\Aviva Weather\\Aviva Weather.csproj": {}
+    "C:\\Users\\dylan\\source\\repos\\WeatherApp\\Aviva Weather\\Aviva Weather.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dylan\\source\\repos\\Aviva Weather\\Aviva Weather\\Aviva Weather.csproj": {
+    "C:\\Users\\dylan\\source\\repos\\WeatherApp\\Aviva Weather\\Aviva Weather.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dylan\\source\\repos\\Aviva Weather\\Aviva Weather\\Aviva Weather.csproj",
+        "projectUniqueName": "C:\\Users\\dylan\\source\\repos\\WeatherApp\\Aviva Weather\\Aviva Weather.csproj",
         "projectName": "Aviva Weather",
-        "projectPath": "C:\\Users\\dylan\\source\\repos\\Aviva Weather\\Aviva Weather\\Aviva Weather.csproj",
+        "projectPath": "C:\\Users\\dylan\\source\\repos\\WeatherApp\\Aviva Weather\\Aviva Weather.csproj",
         "packagesPath": "C:\\Users\\dylan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dylan\\source\\repos\\Aviva Weather\\Aviva Weather\\obj\\",
+        "outputPath": "C:\\Users\\dylan\\source\\repos\\WeatherApp\\Aviva Weather\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [

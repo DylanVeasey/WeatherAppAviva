@@ -26,6 +26,8 @@ namespace Aviva_Weather
 
         string response;
 
+        Rootobject Weather;
+
         bool IsFavOne = false;
         bool IsFavTwo = false;
         bool IsFavThree = false;
@@ -54,7 +56,16 @@ namespace Aviva_Weather
                     if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
                     {  
                         Location = edittext.Text;
-                        LoadWeatherScreen(Location);
+                        WeatherJSON = GetWeather(Location);
+                        if (WeatherJSON == "error")
+                        {
+                            LoadHomeScreen();
+                            Toast.MakeText(Application.Context, "No Location with this name!", ToastLength.Short).Show();
+                        }
+                        else
+                        {
+                            LoadWeatherScreen(WeatherJSON);
+                        }
                         e.Handled = true;
                     }
                 };  
@@ -73,7 +84,14 @@ namespace Aviva_Weather
         {
             using( var client = new WebClient())
             {
-                response = client.DownloadString("https://api.openweathermap.org/data/2.5/weather?q=" + Location + "&appid=51c429c3d3d1c550a530e74e49a76b0c");
+                try
+                {
+                    response = client.DownloadString("https://api.openweathermap.org/data/2.5/weather?q=" + Location + "&appid=51c429c3d3d1c550a530e74e49a76b0c");
+                }
+                catch
+                {
+                    return "error";
+                }
             }
             return response; 
         }
@@ -102,19 +120,19 @@ namespace Aviva_Weather
             Button FavouritesButtonOne = FindViewById<Button>(Resource.Id.FavouritesButtonOne);
             FavouritesButtonOne.Click += delegate
             {
-                LoadWeatherScreen(FavouriteLocationOne);
+                LoadWeatherScreen(GetWeather(FavouriteLocationOne));
             };
 
             Button FavouritesButtonTwo = FindViewById<Button>(Resource.Id.FavouritesButtonTwo);
             FavouritesButtonTwo.Click += delegate
             {
-                LoadWeatherScreen(FavouriteLocationTwo);
+                LoadWeatherScreen(GetWeather(FavouriteLocationTwo));
             };
 
             Button FavouritesButtonThree = FindViewById<Button>(Resource.Id.FavouritesButtonThree);
             FavouritesButtonThree.Click += delegate
             {
-                LoadWeatherScreen(FavouriteLocationThree);
+                LoadWeatherScreen(GetWeather(FavouriteLocationThree));
             };
 
             FavouritesButtonOne.Text = FavouriteLocationOne;
@@ -130,32 +148,43 @@ namespace Aviva_Weather
                 if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
                 {
                     Location = edittext.Text;
-                    LoadWeatherScreen(Location);
+                    WeatherJSON = GetWeather(Location);
+                    if (WeatherJSON == "error")
+                    {
+                        LoadHomeScreen();
+                        Toast.MakeText(Application.Context, "No Location with this name!", ToastLength.Short).Show();
+                    }
+                    else
+                    {
+                        LoadWeatherScreen(WeatherJSON);
+                    }
                     e.Handled = true;
                 }
             };
 
         }
-        public void LoadWeatherScreen(string Location)
+        public void LoadWeatherScreen(string WeatherJSON)
         {
             SetContentView(Resource.Layout.weather_screen);
-            WeatherJSON = GetWeather(Location);
-            Rootobject Weather = JsonSerializer.Deserialize<Rootobject>(WeatherJSON);
+           
+       
+                Weather = JsonSerializer.Deserialize<Rootobject>(WeatherJSON);
+         
 
 
-            Button LoadHomeScreenButton2 = FindViewById<Button>(Resource.Id.LoadHomeScreenButton2);
+            Button LoadHomeScreenButton2 = FindViewById<Button>(Resource.Id.LoadHomeScreenButton);
             LoadHomeScreenButton2.Click += delegate
             {
                 LoadHomeScreen();
             };
 
             TextView TemperatureText = FindViewById<TextView>(Resource.Id.TemperatureText);
-            TemperatureText.Text = ConvertKelvinToCelcius(Weather.main.temp).ToString();
+            TemperatureText.Text = Math.Round(ConvertKelvinToCelcius(Weather.main.temp)).ToString()  + " Degrees ";
 
             TextView TemperatureTextMinMax = FindViewById<TextView>(Resource.Id.TemperatureTextMinMax);
             TemperatureTextMinMax.Text = Weather.weather[0].description;
 
-            Button LoadFavouritesScreenButton2 = FindViewById<Button>(Resource.Id.LoadFavouritesScreenButton2);
+            Button LoadFavouritesScreenButton2 = FindViewById<Button>(Resource.Id.LoadFavouritesScreenButton);
             LoadFavouritesScreenButton2.Click += delegate
             {
                 LoadFavouritesScreen(Weather);
@@ -166,7 +195,7 @@ namespace Aviva_Weather
         {
             SetContentView(Resource.Layout.favourites_screen);
 
-            Button LoadHomeScreenButon = FindViewById<Button>(Resource.Id.LoadHomeScreenButton3);
+            Button LoadHomeScreenButon = FindViewById<Button>(Resource.Id.LoadHomeScreenButton);
             LoadHomeScreenButon.Click += delegate
             {
                 LoadHomeScreen();
