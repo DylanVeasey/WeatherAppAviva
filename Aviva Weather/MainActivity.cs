@@ -16,9 +16,7 @@ namespace Aviva_Weather
     public class MainActivity : AppCompatActivity
     {
 
-        string FavouriteLocationOne;
-        string FavouriteLocationTwo;
-        string FavouriteLocationThree;
+        string[] FavouriteLocations = new string[3];
 
         string WeatherJSON;
 
@@ -126,27 +124,27 @@ namespace Aviva_Weather
             Button FavouritesButtonOne = FindViewById<Button>(Resource.Id.FavouritesButtonOne);
             FavouritesButtonOne.Click += delegate
             {
-                LoadWeatherScreen(GetWeather(FavouriteLocationOne));
+                LoadWeatherScreen(GetWeather(FavouriteLocations[0]));
             };
             
             //When the user clicks the Favourite location button, the system loads the weather screen for the corresponding favourite location
             Button FavouritesButtonTwo = FindViewById<Button>(Resource.Id.FavouritesButtonTwo);
             FavouritesButtonTwo.Click += delegate
             {
-                LoadWeatherScreen(GetWeather(FavouriteLocationTwo));
+                LoadWeatherScreen(GetWeather(FavouriteLocations[1]));
             };
 
             //When the user clicks the Favourite location button, the system loads the weather screen for the corresponding favourite location
             Button FavouritesButtonThree = FindViewById<Button>(Resource.Id.FavouritesButtonThree);
             FavouritesButtonThree.Click += delegate
             {
-                LoadWeatherScreen(GetWeather(FavouriteLocationThree));
+                LoadWeatherScreen(GetWeather(FavouriteLocations[2]));
             };
             
             //Sets the text values of the buttons to be equal to the favourite locations
-            FavouritesButtonOne.Text = FavouriteLocationOne;
-            FavouritesButtonTwo.Text = FavouriteLocationTwo;
-            FavouritesButtonThree.Text = FavouriteLocationThree;
+            FavouritesButtonOne.Text = FavouriteLocations[0];
+            FavouritesButtonTwo.Text = FavouriteLocations[1];
+            FavouritesButtonThree.Text = FavouriteLocations[2];
 
             EditText LocationInputFromUser = FindViewById<EditText>(Resource.Id.edittext);
             LocationInputFromUser.KeyPress += (object sender, View.KeyEventArgs e) => {
@@ -190,7 +188,7 @@ namespace Aviva_Weather
             TemperatureText.Text = Math.Round(ConvertKelvinToCelcius(Weather.main.temp)).ToString()  + " Degrees ";
 
             //Displays the description of the weather
-            TextView TemperatureTextDecription = FindViewById<TextView>(Resource.Id.TemperatureTextMinMax);
+            TextView TemperatureTextDescription = FindViewById<TextView>(Resource.Id.TemperatureTextMinMax);
             TemperatureTextDescription.Text = Weather.weather[0].description;
 
             //When the user clicks the Add to favourites button, the system loads the favourite screen
@@ -229,17 +227,17 @@ namespace Aviva_Weather
             //Checks to see if there is already a value for the favourite and adds sets the favourite location if it is not already set.
           if(IsFavOne == false)
             {
-                FavouriteLocationOne = LocationName;
+                FavouriteLocations[0] = LocationName;
                 IsFavOne = true;
             }
           else if (IsFavTwo == false)
             {
-                FavouriteLocationTwo = LocationName;
+                FavouriteLocations[1] = LocationName;
                 IsFavTwo = true;
             }
           else if (IsFavThree == false)
             {
-                FavouriteLocationThree = LocationName;
+                FavouriteLocations[2] = LocationName;
                 IsFavThree = true;
             }
             LoadHomeScreen();
